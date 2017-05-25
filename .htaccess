@@ -1,0 +1,4 @@
+RewriteEngine On
+RewriteRule ^san-pham$ products.php
+RewriteRule ^trang-chu$ index.php
+RewriteRule ^([0-9_-]+)-([0-9]+)$ product_details.php?proid=$1&catid=$2

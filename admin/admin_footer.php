@@ -1,0 +1,41 @@
+<?php
+if(isset($_SESSION['Name']) && $_SESSION['Pass']){
+
+	?>
+
+</div>
+<!-- /#wrapper -->
+
+<!-- jQuery -->
+
+
+<!-- Bootstrap Core JavaScript -->
+<script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+<!-- Metis Menu Plugin JavaScript -->
+<script src="../bower_components/metisMenu/dist/metisMenu.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="../dist/js/sb-admin-2.js"></script>
+
+<!-- DataTables JavaScript -->
+<script src="../bower_components/DataTables/media/js/jquery.dataTables.min.js"></script>
+<script src="../bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
+
+<!-- Page-Level Demo Scripts - Tables - Use for reference -->
+<script>
+	$(document).ready(function() {
+		$('#dataTables-example').DataTable({
+			responsive: true
+		});
+	});
+</script>
+</body>
+
+</html>
+
+<?php
+}else{
+	header("location:admin_login.php");
+}
+?>
