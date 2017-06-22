@@ -29,9 +29,13 @@ $error=array();
 			success:function(data){
 				$('.alert-block').css("display","block");
 				$('.alert-block').html(data);
+				setTimeout(()=>{
+					location = '/last-project/register.php';
+				},1000)
 			}
 		});
 	}
+
 </script>
 <div class="span9">
 	<ul class="breadcrumb">
@@ -49,7 +53,7 @@ $error=array();
 		<button type="button" class="close" data-dismiss="alert">×</button>
 		<strong>Lorem Ipsum is simply dummy</strong> text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
 	 </div> -->
-	 <div class="alert alert-block alert-error fade in" style="display:none;">
+	 <div class="alert alert-block fade in" style="display:none;">
 		<button type="button" class="close" data-dismiss="alert">×</button>
 		
 	</div> 

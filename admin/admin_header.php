@@ -135,7 +135,7 @@ if(isset($_SESSION['Name']) && $_SESSION['Pass']){
                     <a href="admin_customer.php">Danh sách người dùng</a>
                   </li>
                   <li>
-                    <a href="admin_user.php">Danh sách nhân viên</a>
+                    <a href="admin_user.php">Danh sách thành viên</a>
                   </li>
                 </ul>
                 <!-- /.nav-second-level -->

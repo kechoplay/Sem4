@@ -19,13 +19,15 @@ class Orders extends Product
 		return $instance;
 	}
 
-	public function listOrder($where=null,$order=null)
+	public function listOrder($where=null,$order=null,$start=null,$limit=null)
 	{
 		$data=array();
-		if (is_array($where)) {
-			$where=(count($where) ? ' where ' . implode(' and ', $where) : '');
-		}else{
-			$where=$where;
+		if($where!=null){
+			if (is_array($where)) {
+				$where=(count($where) ? ' where ' . implode(' and ', $where) : '');
+			}else{
+				$where=$where;
+			}
 		}
 		if (is_null($order)) {
 			$order=' order by ord_date desc';
@@ -33,7 +35,7 @@ class Orders extends Product
 			$order=$order;
 		}
 
-		$sql='select * from hoadon'.$where.$order;
+		$sql='select * from hoadon'.$where.$order.$start.$limit;
 		$query=mysql_query($sql);
 		if ($num_row=mysql_num_rows($query)>0) {
 			while ($row=mysql_fetch_array($query)) {
@@ -86,6 +88,21 @@ class Orders extends Product
 		// return $sql;
 	}
 
+	public function destroyOrder($ordid)
+	{
+		$where=' b.ord_id='.$ordid;
+		$lstdetail=$this->listOrderDetail($where);
+		foreach ($lstdetail as $key => $value) {
+			$idsp=$value['pro_id'];
+			$sl=$value['number'];
+			$pro=parent::showListProById($idsp);
+			$quan=$pro[7];
+			$countbuy=$pro[8];
+			$sql2="update sanpham set pro_quantity=".($quan+$sl).",pro_count_buy=".($countbuy-$sl)." where pro_id=".$idsp;
+			mysql_query($sql2);
+		}
+	}
+
 	public function updateOrder($status,$ordid)
 	{
 		$sql="update hoadon set ord_status=$status where ord_id=$ordid";
@@ -94,6 +111,19 @@ class Orders extends Product
 		echo "<meta http-equiv=\"refresh\" content=\"0,url=admin_order.php\">";
 		
 		// return $sql;
+	}
+	public function deleteOrder($ordid)
+	{
+		$query1=mysql_query("delete from hoadonchitiet where ord_id=$ordid");
+		$query=mysql_query("delete from hoadon where ord_id=$ordid");
+		if($query){
+			echo "<meta http-equiv=\"refresh\" content=\"0,url=admin_order.php\">";
+			echo '<script>alert("Thành công")</script>';
+		}else{
+			echo "<meta http-equiv=\"refresh\" content=\"0\">";
+			echo '<script>alert("Thất bại")</script>';
+		}
+		// echo $query;
 	}
 }
 

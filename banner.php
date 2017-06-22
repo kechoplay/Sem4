@@ -10,16 +10,16 @@
 				if($i==0){
 					?>
 					<div class="item active">
-						<div class="container" style="width:100%;">
-							<a href="<?=$litslide[$i]['sli_link']?>"><img style="width:100%" src="hinhanh/slide/<?=$litslide[$i]['sli_image']?>" alt="special offers"/></a>
+						<div class="container" style="width:100%; height:400px;">
+							<a href=""><img style="width:100%" src="hinhanh/slide/<?=$litslide[$i]['sli_image']?>" alt="special offers"/></a>
 						</div>
 					</div>
 					<?php
 				}else{
 					?>
 					<div class="item">
-						<div class="container" style="width:100%;">
-							<a href="register.html"><img style="width:100%" src="hinhanh/slide/<?=$litslide[$i]['sli_image']?>" alt=""/></a>
+						<div class="container" style="width:100%; height:400px;">
+							<a href=""><img style="width:100%" src="hinhanh/slide/<?=$litslide[$i]['sli_image']?>" alt=""/></a>
 							<div class="carousel-caption">
 								<h4>Second Thumbnail label</h4>
 								<p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>

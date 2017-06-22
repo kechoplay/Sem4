@@ -133,12 +133,12 @@ if(isset($_POST['capnhat'])){
 									</div>
 								</td>
 								<td><?php echo number_format($value['pro_price']); ?></td>
-								<td><?php echo number_format($value['pro_discount']); ?></td>
+								<td><?php echo number_format($value['pro_discount']*$_SESSION['cart'][$value['pro_id']]['sl']); ?></td>
 								<td><?php echo number_format($value['pro_price']*$_SESSION['cart'][$value['pro_id']]['sl']); ?></td>
 							</tr>
 							<?php
 							$total+=$value['pro_price']*$_SESSION['cart'][$value['pro_id']]['sl'];
-							$totaldiscount+=$value['pro_discount'];
+							$totaldiscount+=$value['pro_discount']*$_SESSION['cart'][$value['pro_id']]['sl'];
 							$totalall=$total-$totaldiscount;
 						}
 					}

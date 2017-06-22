@@ -47,101 +47,125 @@ $view=$objproduct->listProduct($where,$order2,$start,$limit);
 							<a class="btn" href="addcart.php?proid=<?php echo $value['pro_id']; ?>">Add to 
 								<i class="icon-shopping-cart"></i>
 							</a> 
-							<a class="btn btn-primary" href="#"><?php echo number_format($value['pro_price']-$value['pro_discount']); ?>
-							</a>
-							<a class="btn btn-primary" style="text-decoration:line-through;" href="#"><?php echo number_format($value['pro_price']); ?>
-							</a>
-						</h4>
+							<?php
+							if($value['pro_discount']==0){
+								?>
+								<a class="btn btn-primary" href="#"><?php echo number_format($value['pro_price']); ?></a>
+								<?php 
+							}else{
+								?>
+								<a class="btn btn-primary" href="#"><?php echo number_format($value['pro_price']-$value['pro_discount']); ?>
+								</a>
+								<a class="btn btn-primary" style="text-decoration:line-through;" href="#"><?php echo number_format($value['pro_price']); ?>
+								</a>
+								<?php } ?>
+							</h4>
+						</div>
 					</div>
-				</div>
 
-			</li>
+				</li>
+				<?php
+			}
+			?>
+		</ul>	
+		<h4>Sản phẩm bán chạy nhất </h4>
+		<ul class="thumbnails">
 			<?php
-		}
-		?>
-	</ul>	
-	<h4>Sản phẩm bán chạy nhất </h4>
-	<ul class="thumbnails">
-		<?php
-		foreach ($buy as $key => $value) {
+			foreach ($buy as $key => $value) {
+
+				?>
+				<li class="span3">
+
+					<div class="thumbnail">
+						<a  href="product_details.php?proid=<?php echo $value['pro_id']; ?>&catid=<?php echo $value['cat_id']; ?>">
+							<img src="hinhanh/<?php echo $value['pro_image'] ?>" alt=""/>
+						</a>
+						<div class="caption">
+							<h5><?php echo $value['pro_name'] ?></h5>
+							<p> 
+
+							</p>
+
+							<h4 style="text-align:center">
+								<a class="btn" href="product_details.php?proid=<?php echo $value['pro_id']; ?>&catid=<?php echo $value['cat_id']; ?>"> 
+									<i class="icon-zoom-in"></i>
+								</a> 
+								<a class="btn" href="addcart.php?proid=<?php echo $value['pro_id']; ?>">Add to 
+									<i class="icon-shopping-cart"></i>
+								</a> 
+								<?php
+								if($value['pro_discount']==0){
+									?>
+									<a class="btn btn-primary" href="#"><?php echo number_format($value['pro_price']); ?></a>
+									<?php 
+								}else{
+									?>
+									<a class="btn btn-primary" href="#"><?php echo number_format($value['pro_price']-$value['pro_discount']); ?>
+									</a>
+									<a class="btn btn-primary" style="text-decoration:line-through;" href="#"><?php echo number_format($value['pro_price']); ?>
+									</a>
+									<?php } ?>
+								</h4>
+							</div>
+						</div>
+
+					</li>
+					<?php
+				}
+				?>
+			</ul>
+			<h4>Sản phẩm xem nhiều nhất </h4>
+			<ul class="thumbnails">
+				<?php
+				foreach ($view as $key => $value) {
+
+					?>
+					<li class="span3">
+
+						<div class="thumbnail">
+							<a  href="product_details.php?proid=<?php echo $value['pro_id']; ?>&catid=<?php echo $value['cat_id']; ?>">
+								<img src="hinhanh/<?php echo $value['pro_image'] ?>" alt=""/>
+							</a>
+							<div class="caption">
+								<h5><?php echo $value['pro_name'] ?></h5>
+								<p> 
+
+								</p>
+
+								<h4 style="text-align:center">
+									<a class="btn" href="product_details.php?proid=<?php echo $value['pro_id']; ?>&catid=<?php echo $value['cat_id']; ?>"> 
+										<i class="icon-zoom-in"></i>
+									</a> 
+									<a class="btn" href="addcart.php?proid=<?php echo $value['pro_id']; ?>">Add to 
+										<i class="icon-shopping-cart"></i>
+									</a> 
+									<?php
+									if($value['pro_discount']==0){
+										?>
+										<a class="btn btn-primary" href="#"><?php echo number_format($value['pro_price']); ?></a>
+										<?php 
+									}else{
+										?>
+										<a class="btn btn-primary" href="#"><?php echo number_format($value['pro_price']-$value['pro_discount']); ?>
+										</a>
+										<a class="btn btn-primary" style="text-decoration:line-through;" href="#"><?php echo number_format($value['pro_price']); ?>
+										</a>
+										<?php } ?>
+									</h4>
+								</div>
+							</div>
+
+						</li>
+						<?php
+					}
+					?>
+				</ul>
+			</div>
+
+			<?php
+
+			include('footer.php');
+
+			include('themes_section.php');
 
 			?>
-			<li class="span3">
-
-				<div class="thumbnail">
-					<a  href="product_details.php?proid=<?php echo $value['pro_id']; ?>&catid=<?php echo $value['cat_id']; ?>">
-						<img src="hinhanh/<?php echo $value['pro_image'] ?>" alt=""/>
-					</a>
-					<div class="caption">
-						<h5><?php echo $value['pro_name'] ?></h5>
-						<p> 
-
-						</p>
-
-						<h4 style="text-align:center">
-							<a class="btn" href="product_details.php?proid=<?php echo $value['pro_id']; ?>&catid=<?php echo $value['cat_id']; ?>"> 
-								<i class="icon-zoom-in"></i>
-							</a> 
-							<a class="btn" href="addcart.php?proid=<?php echo $value['pro_id']; ?>">Add to 
-								<i class="icon-shopping-cart"></i>
-							</a> 
-							<a class="btn btn-primary" href="#"><?php echo number_format($value['pro_price']-$value['pro_discount']); ?>
-							</a>
-							<a class="btn btn-primary" style="text-decoration:line-through;" href="#"><?php echo number_format($value['pro_price']); ?>
-							</a>
-						</h4>
-					</div>
-				</div>
-
-			</li>
-			<?php
-		}
-		?>
-	</ul>
-	<h4>Sản phẩm xem nhiều nhất </h4>
-	<ul class="thumbnails">
-		<?php
-		foreach ($view as $key => $value) {
-
-			?>
-			<li class="span3">
-
-				<div class="thumbnail">
-					<a  href="product_details.php?proid=<?php echo $value['pro_id']; ?>&catid=<?php echo $value['cat_id']; ?>">
-						<img src="hinhanh/<?php echo $value['pro_image'] ?>" alt=""/>
-					</a>
-					<div class="caption">
-						<h5><?php echo $value['pro_name'] ?></h5>
-						<p> 
-
-						</p>
-
-						<h4 style="text-align:center">
-							<a class="btn" href="product_details.php?proid=<?php echo $value['pro_id']; ?>&catid=<?php echo $value['cat_id']; ?>"> 
-								<i class="icon-zoom-in"></i>
-							</a> 
-							<a class="btn" href="addcart.php?proid=<?php echo $value['pro_id']; ?>">Add to 
-								<i class="icon-shopping-cart"></i>
-							</a> 
-							<a class="btn btn-primary" href="#"><?php echo number_format($value['pro_price']-$value['pro_discount']); ?>
-							</a>
-							<a class="btn btn-primary" style="text-decoration:line-through;" href="#"><?php echo number_format($value['pro_price']); ?>
-							</a>
-						</h4>
-					</div>
-				</div>
-
-			</li>
-			<?php
-		}
-		?>
-	</ul>
-</div>
-
-<?php
-
-include('footer.php');
-
-include('themes_section.php');
-
-?>

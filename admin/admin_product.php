@@ -67,7 +67,7 @@ if (isset($_GET['proid'])) {
 							<td><?php echo number_format($value['pro_price'],0,'',',') ?></td>
 							<td><?php echo number_format($value['pro_discount']) ?></td>
 							<td><img src="../hinhanh/<?php echo $value['pro_image'] ?>" style="width:50px;"/></td>
-							<td><?php echo $value['pro_description'] ?></td>
+							<td><?php echo html_entity_decode($value['pro_description']) ?></td>
 							<td><?php echo $value['pro_quantity'] ?></td>
 							<td><?php echo ($value['pro_status']==1) ? "Hiện" : "Ẩn" ?></td>
 							<td class="center"><i class="fa fa-trash-o fa-fw"></i><a href="admin_product.php?proid=<?php echo $value['pro_id'] ?>" onclick="return xacnhanxoa();"> Delete</a></td>

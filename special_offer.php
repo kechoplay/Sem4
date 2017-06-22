@@ -26,7 +26,7 @@ $row=$objproduct->listProduct($where);
 		<li><a href="index.php">Trang chủ</a> <span class="divider">/</span></li>
 		<li class="active">Sản phẩm giảm giá</li>
 	</ul>
-	<h4> Giảm giá từ 10% - 20%<small class="pull-right"> <?php echo count($row) ?> sản phẩm có sẵn </small></h4>	
+	<h4> Giảm giá <small class="pull-right"> <?php echo count($row) ?> sản phẩm có sẵn </small></h4>	
 	<hr class="soft"/>
 	<div id="myTab" class="pull-right" style="margin-bottom: 20px;">
 		<a href="#listView" data-toggle="tab"><span class="btn btn-large"><i class="icon-list"></i></span></a>
@@ -79,7 +79,7 @@ $row=$objproduct->listProduct($where);
 					?>
 					<li class="span3">
 						<div class="thumbnail">
-						<div class="tag2"><img src="themes/images/sale.png"/></div>
+							<div class="tag2"><img src="themes/images/sale.png"/></div>
 							<a href="product_details.php?proid=<?php echo $value['pro_id']; ?>&catid=<?php echo $value['cat_id']; ?>"><img src="hinhanh/<?php echo $value['pro_image']; ?>" style="max-width:96%;" alt=""/></a>
 							<div class="caption">
 								<h5><?php echo $value['pro_name']; ?></h5>
@@ -112,45 +112,39 @@ $row=$objproduct->listProduct($where);
 			<?php
 			$total_row=count($row);
 			$total_page=ceil($total_row/$max_result);
-			// if (isset($_GET['page']) && ($_GET['page']>1)) {
-			// 	if(isset($_GET['catid'])){
-			// 		echo "<li><a href=".$_SERVER['PHP_SELF']."?catid=".$_GET['catid']."&page=".($_GET['page']-1).">&lsaquo;</a></li>";
-			// 	}else{
-			// 		echo "<li><a href=".$_SERVER['PHP_SELF']."?page=".($_GET['page']-1).">&lsaquo;</a></li>";
-			// 	}
-			// }
+			if (isset($_GET['page']) && ($_GET['page']>1)) {
+				if(isset($_GET['catid'])){
+					echo "<li><a href=".$_SERVER['PHP_SELF']."?catid=".$_GET['catid']."&page=".($_GET['page']-1).">&lsaquo;</a></li>";
+				}else{
+					echo "<li><a href=".$_SERVER['PHP_SELF']."?page=".($_GET['page']-1).">&lsaquo;</a></li>";
+				}
+			}
 			for ($i=1; $i <= $total_page ; $i++) { 
 				if ($page==$i) {
 					echo "<li class='active'><a>$i</a></li>";
 				}else{
 					if(isset($_GET['catid'])){
-						if(isset($_GET['order'])){
-							echo "<li ><a href=".$_SERVER['REQUEST_URI']."&catid=".$_GET['catid']."&page=$i>$i</a></li>";
-						}else{
-							echo "<li ><a href=".$_SERVER['PHP_SELF']."?catid=".$_GET['catid']."&page=$i>$i</a></li>";
-						}
+						echo "<li ><a href=".$_SERVER['PHP_SELF']."?catid=".$_GET['catid']."&page=$i>$i</a></li>";
+
 					}else{
-						if(isset($_GET['order'])){
-							echo "<li ><a href=".$_SERVER['REQUEST_URI']."&page=$i>$i</a></li>";
-						}else{
-							echo "<li ><a href=".$_SERVER['PHP_SELF']."?page=$i>$i</a></li>";
-						}
+						echo "<li ><a href=".$_SERVER['PHP_SELF']."?page=$i>$i</a></li>";
+
 					}
 				}
 			}
-			// if (!isset($_GET['page']) || (isset($_GET['page']) && $_GET['page']<$total_page)) {
-			// 	if(isset($_GET['catid'])){
-			// 		echo "<li><a href=".$_SERVER['PHP_SELF']."?catid=".$_GET['catid']."&page=2>&rsaquo;</a></li>";
-			// 	}elseif($_GET['page']=$total_page){
-			// 		echo "<li><a href=".$_SERVER['PHP_SELF']."?page=".($_GET['page']+1).">&rsaquo;</a></li>";
-			// 	}
-			// }else{
-			// 	if(isset($_GET['catid'])){
-			// 		echo "<li><a href=".$_SERVER['PHP_SELF']."?catid=".$_GET['catid']."&page=".($_GET['page']+1).">&rsaquo;</a></li>";
-			// 	}else{
-			// 		echo "<li><a href=".$_SERVER['PHP_SELF']."?page=".($_GET['page']+1).">&rsaquo;</a></li>";
-			// 	}
-			// }
+			if ((!isset($_GET['page']))) {
+				if(isset($_GET['catid']) && $total_row > $max_result){
+					echo "<li><a href=".$_SERVER['PHP_SELF']."?catid=".$_GET['catid']."&page=2>&rsaquo;</a></li>";
+				}elseif(!isset($_GET['catid'])){
+					echo "<li><a href=".$_SERVER['PHP_SELF']."?page=2>&rsaquo;</a></li>";
+				}
+			}elseif(isset($_GET['page']) && $_GET['page']<$total_page ){
+				if(isset($_GET['catid'])){
+					echo "<li><a href=".$_SERVER['PHP_SELF']."?catid=".$_GET['catid']."&page=".($_GET['page']+1).">&rsaquo;</a></li>";
+				}else{
+					echo "<li><a href=".$_SERVER['PHP_SELF']."?page=".($_GET['page']+1).">&rsaquo;</a></li>";
+				}
+			}
 			?>
 		</ul>
 	</div>

@@ -69,16 +69,26 @@ $ran=$objproduct->randomRow($where);
 								<a class="btn" href="addcart.php?proid=<?php echo $values['pro_id']; ?>">Add to 
 									<i class="icon-shopping-cart"></i>
 								</a> 
-								<a class="btn btn-primary" href="#"><?php echo number_format($values['pro_price']-$values['pro_discount']); ?>
-								</a>
-								<a class="btn btn-primary" style="text-decoration:line-through;" href="#"><?php echo number_format($values['pro_price']); ?>
-								</a>
-							</h4>
-						</div>
-					</div><br/>
-					<?php
+								<?php
+								if($values['pro_discount']==0){
+									?>
+									<a class="btn btn-primary" href="#"><?php echo number_format($values['pro_price']); ?></a>
+										<?php
+									}else{
+										?>
+										<a class="btn btn-primary" href="#"><?php echo number_format($values['pro_price']-$values['pro_discount']); ?>
+										</a>
+										<a class="btn btn-primary" style="text-decoration:line-through;" href="#"><?php echo number_format($values['pro_price']); ?>
+										</a>
+										<?php 
+									}
+									?>
+								</h4>
+							</div>
+						</div><br/>
+						<?php
 					// }
-				}
-				?>
-			</div>
+					}
+					?>
+				</div>
 			<!-- Sidebar end=============================================== -->

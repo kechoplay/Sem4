@@ -29,7 +29,7 @@ if (isset($_GET['catid'])) {
 }else{
 	$where=' where pro_status=1';
 	$list=$objproduct->listProduct($where,null,$index_row,$max_result);
-	$row=$objproduct->listProduct();
+	$row=$objproduct->listProduct(' where pro_status=1');
 }
 
 // echo "<pre>";
@@ -105,11 +105,30 @@ if (isset($_GET['catid'])) {
 					</div>
 					<div class="span3 alignR">
 						<form class="form-horizontal qtyFrm">
-							<h3><?php echo number_format($value['pro_price']-$value['pro_discount']); ?> VNĐ </h3>
-							<h4 style="text-decoration:line-through;"><?php echo number_format($value['pro_price']); ?> VNĐ</h4>
+							<?php
+							if($value['pro_discount']==0){
+								?>
+								<h3><?php echo number_format($value['pro_price']); ?> VNĐ </h3>
+								<?php
+							}else{
+								?>
+								<h3><?php echo number_format($value['pro_price']-$value['pro_discount']); ?> VNĐ </h3>
+								<h4 style="text-decoration:line-through;"><?php echo number_format($value['pro_price']); ?> VNĐ</h4>
+								<?php
+							}
+							?>
 							<br/>
-
-							<a href="addcart.php?proid=<?php echo $value['pro_id']; ?>" class="btn btn-large btn-primary"> Add to <i class=" icon-shopping-cart"></i></a>
+							<?php
+							if($value['pro_quantity']>0){
+								?>
+								<a href="addcart.php?proid=<?php echo $value['pro_id']; ?>" class="btn btn-large btn-primary"> Add to <i class=" icon-shopping-cart"></i></a>
+								<?php
+							}else{
+								?>
+								<a class="btn btn-large btn-primary"> Hết hàng</i></a>
+								<?php
+							}
+							?>
 							<a href="product_details.php?proid=<?php echo $value['pro_id']; ?>&catid=<?php echo $value['cat_id']; ?>" class="btn btn-large"><i class="icon-zoom-in"></i></a>
 
 						</form>
@@ -141,70 +160,88 @@ if (isset($_GET['catid'])) {
 									<a class="btn" href="product_details.php?proid=<?php echo $value['pro_id']; ?>&catid=<?php echo $value['cat_id']; ?>"> 
 										<i class="icon-zoom-in"></i>
 									</a>
-									<a class="btn" href="addcart.php?proid=<?php echo $value['pro_id']; ?>">Add to <i class="icon-shopping-cart"></i>
-									</a>
-									<a class="btn btn-primary" href="#"><?php echo number_format($value['pro_price']-$value['pro_discount']); ?>
-									</a>
-									<a class="btn btn-primary" style="text-decoration:line-through;" href="#"><?php echo number_format($value['pro_price']); ?>
-									</a>
-								</h4>
+									<?php
+									if($value['pro_quantity']>0){
+										?>
+										<a class="btn" href="addcart.php?proid=<?php echo $value['pro_id']; ?>">Add to <i class="icon-shopping-cart"></i>
+										</a>
+										<?php
+									}else{
+										?>
+										<a class="btn"> Hết hàng</i></a>
+										<?php
+									}
+									?>
+									<?php
+									if($value['pro_discount']==0){
+										?>
+										<a class="btn btn-primary" href="#"><?php echo number_format($value['pro_price']); ?></a>
+										<?php 
+									}else{
+										?>
+										<a class="btn btn-primary" href="#"><?php echo number_format($value['pro_price']-$value['pro_discount']); ?>
+										</a>
+										<a class="btn btn-primary" style="text-decoration:line-through;" href="#"><?php echo number_format($value['pro_price']); ?>
+										</a>
+										<?php } ?>
+									</h4>
+								</div>
 							</div>
-						</div>
-					</li>
-					<?php
+						</li>
+						<?php
+					}
+					?>
+				</ul>
+			</div>
+		</div>
+
+		<div class="pagination">
+			<ul>
+				<?php
+				$total_row=count($row);
+				$total_page=ceil($total_row/$max_result);
+				if (isset($_GET['page']) && ($_GET['page']>1)) {
+					if(isset($_GET['catid'])){
+						echo "<li><a href=".$_SERVER['PHP_SELF']."?catid=".$_GET['catid']."&page=".($_GET['page']-1).">&lsaquo;</a></li>";
+					}else{
+						echo "<li><a href=".$_SERVER['PHP_SELF']."?page=".($_GET['page']-1).">&lsaquo;</a></li>";
+					}
+				}
+				for ($i=1; $i <= $total_page ; $i++) { 
+					if ($page==$i) {
+						echo "<li class='active'><a>$i</a></li>";
+					}else{
+						if(isset($_GET['catid'])){
+							echo "<li ><a href=".$_SERVER['PHP_SELF']."?catid=".$_GET['catid']."&page=$i>$i</a></li>";
+
+						}else{
+							echo "<li ><a href=".$_SERVER['PHP_SELF']."?page=$i>$i</a></li>";
+
+						}
+					}
+				}
+				if ((!isset($_GET['page']))) {
+					if(isset($_GET['catid']) && $total_row > $max_result){
+						echo "<li><a href=".$_SERVER['PHP_SELF']."?catid=".$_GET['catid']."&page=2>&rsaquo;</a></li>";
+					}elseif(!isset($_GET['catid'])){
+						echo "<li><a href=".$_SERVER['PHP_SELF']."?page=2>&rsaquo;</a></li>";
+					}
+				}elseif(isset($_GET['page']) && $_GET['page']<$total_page ){
+					if(isset($_GET['catid'])){
+						echo "<li><a href=".$_SERVER['PHP_SELF']."?catid=".$_GET['catid']."&page=".($_GET['page']+1).">&rsaquo;</a></li>";
+					}else{
+						echo "<li><a href=".$_SERVER['PHP_SELF']."?page=".($_GET['page']+1).">&rsaquo;</a></li>";
+					}
 				}
 				?>
 			</ul>
 		</div>
+		<br class="clr"/>
 	</div>
+	<?php
 
-	<div class="pagination">
-		<ul>
-			<?php
-			$total_row=count($row);
-			$total_page=ceil($total_row/$max_result);
-			if (isset($_GET['page']) && ($_GET['page']>1)) {
-				if(isset($_GET['catid'])){
-					echo "<li><a href=".$_SERVER['PHP_SELF']."?catid=".$_GET['catid']."&page=".($_GET['page']-1).">&lsaquo;</a></li>";
-				}else{
-					echo "<li><a href=".$_SERVER['PHP_SELF']."?page=".($_GET['page']-1).">&lsaquo;</a></li>";
-				}
-			}
-			for ($i=1; $i <= $total_page ; $i++) { 
-				if ($page==$i) {
-					echo "<li class='active'><a>$i</a></li>";
-				}else{
-					if(isset($_GET['catid'])){
-						echo "<li ><a href=".$_SERVER['PHP_SELF']."?catid=".$_GET['catid']."&page=$i>$i</a></li>";
-						
-					}else{
-						echo "<li ><a href=".$_SERVER['PHP_SELF']."?page=$i>$i</a></li>";
-						
-					}
-				}
-			}
-			if ((!isset($_GET['page']))) {
-				if(isset($_GET['catid'])){
-					echo "<li><a href=".$_SERVER['PHP_SELF']."?catid=".$_GET['catid']."&page=2>&rsaquo;</a></li>";
-				}else{
-					echo "<li><a href=".$_SERVER['PHP_SELF']."?page=2>&rsaquo;</a></li>";
-				}
-			}elseif(isset($_GET['page']) && $_GET['page']<$total_page ){
-				if(isset($_GET['catid'])){
-					echo "<li><a href=".$_SERVER['PHP_SELF']."?catid=".$_GET['catid']."&page=".($_GET['page']+1).">&rsaquo;</a></li>";
-				}else{
-					echo "<li><a href=".$_SERVER['PHP_SELF']."?page=".($_GET['page']+1).">&rsaquo;</a></li>";
-				}
-			}
-			?>
-		</ul>
-	</div>
-	<br class="clr"/>
-</div>
-<?php
+	include('footer.php');
 
-include('footer.php');
+	include('themes_section.php');
 
-include('themes_section.php');
-
-?>
+	?>

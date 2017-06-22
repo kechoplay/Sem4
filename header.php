@@ -92,9 +92,9 @@ if(isset($_POST['login'])){
 				<div class="navbar-inner">
 					<a class="brand" href="index.php"><img src="hinhanh/logo/logoheader.png" alt="Bootsshop" style="width:65%;" /></a>
 					<ul id="topMenu" class="nav pull-right">
+						<li class=""><a href="products.php">Sản phẩm</a></li>
 						<li class=""><a href="search.php">Tìm kiếm</a></li>
 						<li class=""><a href="special_offer.php">Giảm giá</a></li>
-						<li class=""><a href="normal.php">Delivery</a></li>
 						<li class=""><a href="contact.php">Liên hệ</a></li>
 						<li class="">
 							<?php

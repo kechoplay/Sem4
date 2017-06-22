@@ -41,7 +41,7 @@
 #myTabContent{text-align:justify}
 #compairTbl td{text-align:center;}
 #accordion2, #legalNotice, .justify, #mainCol{text-align:justify}
-#myCarousel .carousel-control{display:none}
+#myCarousel .carousel-control{display:none; margin-top: 30px;}
 #myCarousel:hover .carousel-control{display:block}
 .navbar .nav > .active > a, .navbar .nav > .active > a:hover, .navbar .nav > .active > a:focus {color:#fff; background-color: #CF0007;text-shadow: none;}
 /* Footer section--------------- */

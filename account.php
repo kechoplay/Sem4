@@ -2,8 +2,13 @@
 
 include_once 'header.php';
 
+$objorder=new Orders();
+
 $error=array();
 if (isset($_SESSION['customer'])) {
+
+	$where=" where cus_id=".$_SESSION['customer']['id'];
+	$or=$objorder->listOrder($where);
 
 	$user=$_SESSION['customer']['user'];
 	$pw=$_SESSION['customer']['pass'];
@@ -44,7 +49,7 @@ if (isset($_SESSION['customer'])) {
 			$_SESSION['customer']=array(
 				'user'=>$user,
 				'pass'=>$pw,
-				'id'=>$fetch['cus_id'],
+				'id'=>$id,
 				'email'=>$email,
 				'address'=>$address,
 				'mobile'=>$mobile,
@@ -160,28 +165,16 @@ if (isset($_SESSION['customer'])) {
 						</div>
 					</div>
 				</div>
-				<div class="accordion-group">
-					<div class="accordion-heading">
-						<h4><a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapseThree">
-							Collapsible Group Item #3
-						</a></h4>
-					</div>
-					<div id="collapseThree" class="accordion-body collapse"  >
-						<div class="accordion-inner">
-							Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-						</div>
-					</div>
-				</div>
+				
 			</div>
 		</div>
-	</div>
 
 
-	<?php
-}else{
-	header('location:login.php');
-}
+		<?php
+	}else{
+		header('location:login.php');
+	}
 
-include_once 'footer.php';
+	include_once 'footer.php';
 
-?>
+	?>

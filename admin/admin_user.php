@@ -5,7 +5,7 @@ include("admin_header.php");
 $objuser=new User();
 
 $where=" where id!=1";
-$listuser=$objuser->listUser($where);
+$listuser=$objuser->listUser();
 
 // echo "<pre>";
 // print_r($listPro);
